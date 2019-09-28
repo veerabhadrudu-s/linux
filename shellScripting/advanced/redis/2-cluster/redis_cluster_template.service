@@ -1,0 +1,12 @@
+[Unit]
+Description=Redis Cluster service running on port __PORT__
+Requires=network.target
+
+[Service]
+Type=simple
+RemainAfterExit=true
+ExecStart=/usr/local/bin/redis-server /etc/redis/cluster___PORT__.conf
+ 
+
+[Install]
+WantedBy=multi-user.target

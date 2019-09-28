@@ -1,0 +1,25 @@
+# Below LDAP Entry modification will configure syncrepl consumer configuration.
+# syncrepl can be configured as refreshAndPersist type also. change type attribute in below configuration to make that change.
+# Make sure to change provider url in this file.
+# ldapmodify -Y EXTERNAL  -H ldapi:/// -f 1-consumer.ldif
+
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcDbIndex
+olcDbIndex: entryCSN,entryUUID eq
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcSyncRepl
+olcSyncRepl: rid=001  
+  provider=ldap://192.168.190.112:389/
+  bindmethod=simple  
+  binddn="cn=ldapadm,dc=ldaptest,dc=com"  
+  credentials=password
+  searchbase="dc=ldaptest,dc=com"
+  scope=sub
+  schemachecking=on
+  type=refreshOnly
+  retry="30 5 300 3"
+  interval=00:00:00:30

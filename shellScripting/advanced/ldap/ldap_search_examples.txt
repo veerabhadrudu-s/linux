@@ -1,0 +1,16 @@
+ldapsearch -D "cn=ldapadm,dc=ldaptest,dc=com" -w password -p 389 -h 192.168.190.112 -b "dc=ldaptest,dc=com" -s sub "(objectclass=*)" ;
+
+ldapsearch -D "uid=ldapuser_0,ou=People,dc=ldaptest,dc=com" -w userpassword -p 389 -h 192.168.190.112 -b "uid=ldapuser_0,ou=People,dc=ldaptest,dc=com" -s sub "(objectclass=*)" ;
+
+
+ldapsearch -D "uid=ldapuser_0,ou=People,dc=ldaptest,dc=com" -w userpassword -p 389 -h 192.168.190.112 -b  'cn=Monitor' -s base 1.1 ;
+
+ldapsearch -D "uid=ldapuser_0,ou=People,dc=ldaptest,dc=com" -w userpassword -p 389 -h 192.168.190.112 -b  'cn=Monitor' -s sub "(objectclass=*)" ;
+
+ldapsearch -D "cn=ldapadm,dc=ldaptest,dc=com" -w password -p 389 -h 192.168.190.112 -b  'cn=Monitor' -s base 1.1 ;
+
+ldapsearch -D "cn=ldapadm,dc=ldaptest,dc=com" -w password -p 389 -h 192.168.190.112 -b  'cn=Monitor' -s sub "(objectclass=*)" ;
+
+ldapsearch -x -LLL -b 'dc=ldaptest,dc=com' -h 192.168.190.113 -s base contextCSN ;
+
+ldapsearch -x -LLL -b 'dc=ldaptest,dc=com' -h 192.168.190.113 -s sub entryCSN ;

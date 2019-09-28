@@ -1,0 +1,6 @@
+# ldapmodify -Y EXTERNAL  -H ldapi:/// -f 0-provider-2.ldif
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcDbIndex
+olcDbIndex: entryCSN,entryUUID eq

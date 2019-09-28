@@ -1,0 +1,8 @@
+invalid_column_host,
+vm11-192.168.190.111,192.168.190.111,ping
+odd_number_of_vars_host,192.168.190.224,ping,:,:,:,ldap_v3,true,ldap_bind
+no_check_command_or_host_template_host,192.168.190.224,,:,:,:,ldap_v3,true
+no_check_command_or_host_template_with_spaces_host,192.168.190.224,  ,:  ,  :,:,ldap_v3,true
+vm12-192.168.190.112,192.168.190.112,ping,:,ldap_host_template,:,:,ldap_v3,true,ldap_bind,"cn=ldapadm,dc=ldaptest,dc=com",ldap_base,"ou=People,dc=ldaptest,dc=com",ldap_pass,password,ldap_warning,2,ldap_critical,3,ldap_provider_ip_address,192.168.190.113,ldap_provider_server_id,002,ldap_syncrepl_monitoring_warn,2,ldap_syncrepl_monitoring_critic,5
+vm13-192.168.190.113,192.168.190.113,,:,ldap_host_template,ping_host_template,:,:,ldap_v3,true,ldap_bind,"cn=ldapadm,dc=ldaptest,dc=com",ldap_base,"ou=People,dc=ldaptest,dc=com",ldap_pass,password,ldap_warning,2,ldap_critical,3,ldap_provider_ip_address,192.168.190.112,ldap_provider_server_id,001,ldap_syncrepl_monitoring_warn,2,ldap_syncrepl_monitoring_critic,5
+

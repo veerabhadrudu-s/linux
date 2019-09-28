@@ -1,0 +1,29 @@
+#This is the first ldif file that need's to be imported.
+#Import this file using below shell command
+# ldapmodify -Y EXTERNAL  -H ldapi:/// -f 0-db.ldif
+
+dn: cn=config
+changetype: modify
+add: olcLogLevel
+olcLogLevel: -1
+
+dn: cn=config
+changetype: modify
+add: olcLogFile
+olcLogFile: /var/log/openldap/error.log
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+replace: olcSuffix
+olcSuffix: dc=ldaptest,dc=com
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+replace: olcRootDN
+olcRootDN: cn=ldapadm,dc=ldaptest,dc=com
+
+#Password is password and password hash is generated using comamnd #slappasswd -s password
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+replace: olcRootPW
+olcRootPW: {SSHA}macofxxjuSs3w+n7T0/LPcX+S92zpVAl

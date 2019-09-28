@@ -1,0 +1,15 @@
+# Below LDAP Entry will enable syncrepl module.
+# ldapadd -Y EXTERNAL -H ldapi:/// -f 0-server_1-1.ldif
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module
+olcModulePath: /usr/lib64/openldap
+olcModuleLoad: syncprov.la
+
+# Below LDAP Entry will enable syncrepl for hdb database at provider/master side.
+dn: olcOverlay=syncprov,olcDatabase={2}hdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpSessionLog: 100
+olcSpCheckpoint: 100 10

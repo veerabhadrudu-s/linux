@@ -1,0 +1,8 @@
+ldap_fail_1,ldap,120,60,2,true,true,true,true,true
+ldap_fail_2,ldappps,120,60,2,true,true,true,true,true,true,true
+check_ldap_monitor_modify_fail,check_ldap_monitor,120,60,2,true,true,true,true,true,true,true,ldap_monitoring_critic,100,ldap_monitoring_warn,90,ldap_monitoring_mode,greater,ldap_monitoring_type
+ldap,ldap,120,60,2,true,true,true,true,true,true,true
+check_ldap_monitor_totaladd,check_ldap_monitor,120,60,2,true,true,true,true,true,true,true,ldap_monitoring_critic,100,ldap_monitoring_mode,greater,ldap_monitoring_type,totaladd,ldap_monitoring_warn,90
+check_ldap_monitor_modify,check_ldap_monitor,120,60,2,true,true,true,true,true,true,true,ldap_monitoring_critic,100,ldap_monitoring_warn,90,ldap_monitoring_mode,greater,ldap_monitoring_type,totalmodify
+check_ldap_monitor_totalsearch,check_ldap_monitor,120,60,2,true,true,true,true,true,true,true,ldap_monitoring_critic,100,ldap_monitoring_mode,greater,ldap_monitoring_type,totalsearch,ldap_monitoring_warn,90
+check_ldap_syncrepl_status,check_ldap_syncrepl_status,120,60,2,true,true,true,true,true,true,true

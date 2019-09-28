@@ -1,0 +1,15 @@
+
+[Unit]
+Description=systemd-slow-service.service
+Requires=network.service
+After=network.service
+
+[Service]
+Type=simple
+Environment="CHILD_PROCESS_COUNT=10"
+#Type=oneshot
+#ExecStart=/usr/bin/echo "This is sample log from service file - %n"
+ExecStart=/root/Desktop/systemd-examples/example_3/dummy.sh ${CHILD_PROCESS_COUNT}
+
+[Install]
+#WantedBy=multi-user.target

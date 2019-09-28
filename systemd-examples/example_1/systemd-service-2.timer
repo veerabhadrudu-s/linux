@@ -1,0 +1,11 @@
+
+[Unit]
+Description=systemd-service-2.timer
+#Requires=network.service systemd-service-2.service
+#After=network.service systemd-service-2.service
+
+[Timer]
+OnCalendar=minutely
+
+[Install]
+WantedBy=multi-user.target

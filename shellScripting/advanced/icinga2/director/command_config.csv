@@ -1,0 +1,5 @@
+invalid_column_length_command,PluginCheck,1
+ping_command,PluginCheck,60,ping
+check_ldap_monitor,PluginCheck,60,/usr/lib64/nagios/plugins/check_ldap_monitor.pl,-H,$host.address$,-T,$ldap_monitoring_type$,-w,$ldap_monitoring_warn$,-c,$ldap_monitoring_critic$,-m,$ldap_monitoring_mode$,-P,$ldap_pass$,-D,$ldap_bind$,-f
+check_ldap_syncrepl_status,PluginCheck,,/usr/lib64/nagios/plugins/check_ldap_syncrepl_status.pl,-H,$host.address$,-U,$ldap_provider_ip_address$,-I,$ldap_provider_server_id$,-w,$ldap_syncrepl_monitoring_warn$,-c,$ldap_syncrepl_monitoring_critic$,-P,$ldap_pass$,-f
+command_with_comma_in_arguments,PluginCheck,90,command_with_comma_in_arguments,1st-arg,"2nd-arg","3rd-arg-with-comma,comma","4th-arg-with-commas,comma,comma,comma,",5th-arg

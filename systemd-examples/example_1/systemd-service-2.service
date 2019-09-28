@@ -1,0 +1,15 @@
+
+[Unit]
+Description=systemd-service-2.service
+Requires=network.service systemd-service-1.service
+After=network.service systemd-service-1.service
+
+
+[Service]
+Type=simple
+#Type=oneshot
+ExecStart=/usr/bin/echo "This is sample log from service file - %n"
+
+
+[Install]
+#WantedBy=multi-user.target

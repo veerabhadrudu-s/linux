@@ -1,0 +1,9 @@
+#This file should be imported after 0-db.ldif
+#This configuration file is needed to allow DN with name(BindDN) cn=ldapadm,dc=ldaptest,dc=com  to access LDAP monitoring db/componnent.
+#Import this file using below shell command
+# ldapmodify -Y EXTERNAL  -H ldapi:/// -f 1-monitor.ldif
+
+dn: olcDatabase={1}monitor,cn=config
+changetype: modify
+replace: olcAccess
+olcAccess: {0}to * by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" read by dn.base="cn=ldapadm,dc=ldaptest,dc=com" read by * none

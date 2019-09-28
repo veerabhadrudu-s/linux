@@ -1,0 +1,11 @@
+
+[Unit]
+Description=systemd-slow-service.timer
+
+[Timer]
+#OnCalendar=minutely
+OnCalendar=*-*-* *:*:15
+AccuracySec=1usec
+
+[Install]
+WantedBy=multi-user.target

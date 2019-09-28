@@ -1,0 +1,5 @@
+invalid_host_template,
+invalid_host_group_template,,DUMMY
+host_template_empty,,,
+ping_host_template,ping,,
+ldap_host_template,,LDAP,ldap,check_ldap_monitor_totalsearch,check_ldap_monitor_totaladd,check_ldap_monitor_modify,check_ldap_syncrepl_status

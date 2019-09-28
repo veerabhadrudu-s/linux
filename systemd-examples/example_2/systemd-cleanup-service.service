@@ -1,0 +1,14 @@
+[Unit]
+Description=systemd-cleanup-service.service
+Requires=network.service
+After=network.service
+
+[Service]
+Type=simple
+Environment="CLEAN_UP_SERVICE_FILE=systemd-slow-service.service"
+#Type=oneshot
+#ExecStart=/usr/bin/echo "This is sample log from service file - %n"
+ExecStart=/root/Desktop/systemd-examples/example_2/cleanup.sh ${CLEAN_UP_SERVICE_FILE}
+
+[Install]
+WantedBy=multi-user.target

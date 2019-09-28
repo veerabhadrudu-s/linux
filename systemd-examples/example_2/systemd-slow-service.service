@@ -1,0 +1,14 @@
+
+[Unit]
+Description=systemd-slow-service.service
+Requires=network.service
+After=network.service
+
+[Service]
+Type=simple
+#Type=oneshot
+#ExecStart=/usr/bin/echo "This is sample log from service file - %n"
+ExecStart=/root/Desktop/systemd-examples/example_2/dummy.sh
+
+[Install]
+#WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Redis Sentinel service running on port __PORT__
+Requires=network.target
+
+[Service]
+Type=simple
+RemainAfterExit=true
+ExecStart=/usr/local/bin/redis-sentinel /etc/redis/sentinel___PORT__.conf
+ 
+
+[Install]
+WantedBy=multi-user.target

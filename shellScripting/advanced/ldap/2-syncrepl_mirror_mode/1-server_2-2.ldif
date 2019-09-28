@@ -1,0 +1,32 @@
+# Below Configuration will assign serverID to Ldap Server,Mirror Mode Enabled and SyncRepl Consumer Configuration configured.
+# ldapmodify -Y EXTERNAL  -H ldapi:/// -f 1-server_2-2.ldif
+
+dn: cn=config
+changetype: modify
+add: olcServerID
+olcServerID: 2
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcDbIndex
+olcDbIndex: entryCSN,entryUUID eq
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcSyncRepl
+olcSyncRepl: rid=001  
+  provider=ldap://192.168.190.112:389/
+  bindmethod=simple  
+  binddn="cn=ldapadm,dc=ldaptest,dc=com"  
+  credentials=password
+  searchbase="dc=ldaptest,dc=com"
+  scope=sub
+  schemachecking=on
+  type=refreshOnly
+  retry="30 5 300 3"
+  interval=00:00:00:30
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcMirrorMode
+olcMirrorMode: TRUE

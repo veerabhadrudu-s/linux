@@ -1,0 +1,21 @@
+#Before Importing this users ldif file, you should have completed importing 2-base.ldif file.
+#Import this file using below shell command 
+# ldapadd -x -W -D "cn=ldapadm,dc=ldaptest,dc=com" -f 3-users.ldif
+
+dn: uid=ldapuser_1,ou=People,dc=ldaptest,dc=com
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: ldapuser_1
+uid: ldapuser_1
+uidNumber: 9999
+gidNumber: 100
+homeDirectory: /home/ldapuser_1
+loginShell: /bin/bash
+gecos: Ldapuser_1 [Admin (at) ldaptest]
+userPassword: userpassword
+shadowLastChange: 17058
+shadowMin: 0
+shadowMax: 99999
+shadowWarning: 7
