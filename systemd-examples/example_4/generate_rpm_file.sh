@@ -15,7 +15,18 @@ https://rpm.org/documentation.html
 BLOCK_CMT
 
 RPM_NAME="systemd-slow-service";
-RPM_VERSTION="1";
+RPM_VERSION="1";
+RPM_NAME_WITH_VERSION="${RPM_NAME}-${RPM_VERSION}";
+TAR_NAME="${RPM_NAME}-${RPM_VERSION}.gz.tar";
+RPM_BUILD_PATH="${HOME}/rpmbuild";
+RPM_SPEC_FILE="systemd-slow-service.spec";
+RPM_SPEC_FILE_PATH="${RPM_BUILD_PATH}/SPECS/${RPM_SPEC_FILE}";
+SED_VERSION_EXPR='s/__VERSON_PLACE_HOLDER__/'${RPM_VERSION}'/g';
 
-
-
+{ mkdir -p ${RPM_NAME_WITH_VERSION} && cp [cd]*.sh *.service *.timer ${RPM_NAME_WITH_VERSION} && \
+tar -czvf ${TAR_NAME} "${RPM_NAME_WITH_VERSION}/"; } || { echo "Failed to create ${TAR_NAME}"; exit 1; };
+echo "Completed creating ${TAR_NAME} file";
+mv "${TAR_NAME}" "${RPM_BUILD_PATH}/SOURCES/${TAR_NAME}" && rm -fR "${RPM_NAME_WITH_VERSION}/";
+cp "${RPM_SPEC_FILE}.tmplt" ${RPM_SPEC_FILE_PATH};
+sed -ie ${SED_VERSION_EXPR} ${RPM_SPEC_FILE_PATH};
+rpmbuild -ba ${RPM_SPEC_FILE_PATH};
