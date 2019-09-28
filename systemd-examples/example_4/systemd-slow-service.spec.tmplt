@@ -19,10 +19,23 @@ This is a systemd slow service rpm, which has 2 service files.
 
 %install
 mkdir -p %{buildroot}/usr/bin/
+mkdir -p %{buildroot}/usr/lib/systemd/system/
 install -m 755 dummy.sh %{buildroot}/usr/bin/dummy.sh
+install -m 755 cleanup.sh %{buildroot}/usr/bin/cleanup.sh
+install -m 644 systemd-slow-service.service %{buildroot}/usr/lib/systemd/system/systemd-slow-service.service
+install -m 644 systemd-cleanup-service.service %{buildroot}/usr/lib/systemd/system/systemd-cleanup-service.service
+install -m 644 systemd-slow-service.timer %{buildroot}/usr/lib/systemd/system/systemd-slow-service.timer
+install -m 644 systemd-cleanup-service.timer %{buildroot}/usr/lib/systemd/system/systemd-cleanup-service.timer
+
 
 %files
 /usr/bin/dummy.sh
+/usr/bin/cleanup.sh
+/usr/lib/systemd/system/systemd-slow-service.service
+/usr/lib/systemd/system/systemd-cleanup-service.service
+/usr/lib/systemd/system/systemd-slow-service.timer
+/usr/lib/systemd/system/systemd-cleanup-service.timer
+
 
 %changelog
 # let's skip this for now
