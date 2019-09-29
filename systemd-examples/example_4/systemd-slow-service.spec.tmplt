@@ -1,12 +1,12 @@
 Name: 	     	 systemd-slow-service 
 Version:	 __VERSON_PLACE_HOLDER__
-Release:    	 1%{?dist}
+Release:    	 __RELSE_VERSON_PLACE_HOLDER__%{?dist}
 Summary:   	 This is a systemd slow service
 License:   	 GPL
-Source0:	 /root/rpmbuild/SPECS/systemd-slow-service-%{version}.gz.tar
+Source0:	 /root/rpmbuild/SPECS/%{name}-%{version}.gz.tar
 BuildArch: 	 noarch
-BuildRequires:	 systemd
-Requires:	 systemd
+BuildRequires:	 systemd 
+Requires:	 systemd bash
 
 
 %description
@@ -19,9 +19,12 @@ This is a systemd slow service rpm, which has 2 service files.
 
 %install
 mkdir -p %{buildroot}/usr/bin/
+mkdir -p %{buildroot}/etc/slow_service/
 mkdir -p %{buildroot}/usr/lib/systemd/system/
-install -m 755 dummy.sh %{buildroot}/usr/bin/dummy.sh
+install -m 755 slow_service.sh %{buildroot}/usr/bin/slow_service.sh
 install -m 755 cleanup.sh %{buildroot}/usr/bin/cleanup.sh
+install -m 644 systemd-slow-service.config %{buildroot}/etc/slow_service/systemd-slow-service.config
+install -m 644 systemd-cleanup-service.config %{buildroot}/etc/slow_service/systemd-cleanup-service.config
 install -m 644 systemd-slow-service.service %{buildroot}/usr/lib/systemd/system/systemd-slow-service.service
 install -m 644 systemd-cleanup-service.service %{buildroot}/usr/lib/systemd/system/systemd-cleanup-service.service
 install -m 644 systemd-slow-service.timer %{buildroot}/usr/lib/systemd/system/systemd-slow-service.timer
@@ -29,13 +32,54 @@ install -m 644 systemd-cleanup-service.timer %{buildroot}/usr/lib/systemd/system
 
 
 %files
-/usr/bin/dummy.sh
+%dir /etc/slow_service/
+/usr/bin/slow_service.sh
 /usr/bin/cleanup.sh
+/etc/slow_service/systemd-slow-service.config
+/etc/slow_service/systemd-cleanup-service.config
 /usr/lib/systemd/system/systemd-slow-service.service
 /usr/lib/systemd/system/systemd-cleanup-service.service
 /usr/lib/systemd/system/systemd-slow-service.timer
 /usr/lib/systemd/system/systemd-cleanup-service.timer
 
+%pre
+echo "This is a sample log printed from Pre Install block of spec file";
+if [[ "$1" -gt 1 ]]
+then
+	systemctl --now disable systemd-cleanup-service.timer;
+	systemctl --now disable systemd-slow-service.timer;
+	systemctl --now disable systemd-cleanup-service.service;
+	systemctl --now disable systemd-slow-service.service;
+	systemctl daemon-reload;
+	sleep 2;
+fi;
+
+%post
+echo "This is a sample log printed from Post Install block of spec file";
+
+if [[ "$1" -ge 1 ]]
+then
+	systemctl --now enable systemd-cleanup-service.timer;
+	systemctl --now enable systemd-slow-service.timer;
+	systemctl daemon-reload;
+fi;
+
+%preun
+echo "This is a sample log printed from Pre Un-Install block of spec file";
+if [[ "$1" -eq 0 ]]
+then
+	systemctl --now disable systemd-cleanup-service.timer;
+	systemctl --now disable systemd-slow-service.timer;
+	systemctl --now disable systemd-cleanup-service.service;
+	systemctl --now disable systemd-slow-service.service;
+	systemctl daemon-reload;
+fi;
+
+%postun
+echo "This is a sample log printed from Post Un-Install block of spec file";
+echo "\$1 - Value is - $1";
+
 
 %changelog
-# let's skip this for now
+* Sun Sep 29 2019 Veerabhadrudu <veerabhadrudu.s@gmail.com> - %{version}
+- Slow service created
