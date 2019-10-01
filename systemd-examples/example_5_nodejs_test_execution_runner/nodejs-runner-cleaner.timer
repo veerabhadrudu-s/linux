@@ -1,0 +1,10 @@
+
+[Unit]
+Description=systemd-cleanup-service.timer
+
+[Timer]
+OnCalendar=*-*-* 23:00:00
+AccuracySec=1usec
+
+[Install]
+WantedBy=multi-user.target

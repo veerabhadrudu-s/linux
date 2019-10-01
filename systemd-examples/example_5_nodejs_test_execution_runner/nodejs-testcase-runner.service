@@ -1,0 +1,13 @@
+
+[Unit]
+Description=systemd-slow-service.service
+Requires=network.service
+After=network.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/nodejs_runner/nodejs-testcase-runner.config
+ExecStart=/usr/lib/nodejs_runner/run_all_nodejs_testcases.sh ${CODE_BASE_ABS_PATH} ${TEST_DIR_STR} ${BATCH_SIZE}
+
+[Install]
+#WantedBy=multi-user.target

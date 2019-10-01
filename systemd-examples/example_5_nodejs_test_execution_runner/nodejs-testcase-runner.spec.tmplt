@@ -1,0 +1,88 @@
+Name: 	     	 nodejs-testcase-runner 
+Version:	 __VERSON_PLACE_HOLDER__
+Release:    	 __RELSE_VERSON_PLACE_HOLDER__%{?dist}
+Summary:   	 This is a systemd slow service
+License:   	 GPL
+Source0:	 /root/rpmbuild/SPECS/%{name}-%{version}.gz.tar
+BuildArch: 	 noarch
+BuildRequires:	 systemd 
+Requires:	 systemd bash nodejs
+
+
+%description
+This is a systemd nodejs test runner rpm, which has 2 service files and corresponding timer files.
+
+%prep
+%setup -q
+
+%build
+
+%install
+mkdir -p %{buildroot}/usr/lib/nodejs_runner/
+mkdir -p %{buildroot}/etc/nodejs_runner/
+mkdir -p %{buildroot}/usr/lib/systemd/system/
+install -m 755 run_nodejs_testcases_in_batch.sh %{buildroot}/usr/lib/nodejs_runner/run_nodejs_testcases_in_batch.sh
+install -m 755 run_all_nodejs_testcases.sh %{buildroot}/usr/lib/nodejs_runner/run_all_nodejs_testcases.sh
+install -m 755 systemd_service_cleanup.sh  %{buildroot}/usr/lib/nodejs_runner/systemd_service_cleanup.sh
+install -m 644 nodejs-testcase-runner.config %{buildroot}/etc/nodejs_runner/nodejs-testcase-runner.config
+install -m 644 nodejs-runner-cleaner.config %{buildroot}/etc/nodejs_runner/nodejs-runner-cleaner.config
+install -m 644 nodejs-testcase-runner.service %{buildroot}/usr/lib/systemd/system/nodejs-testcase-runner.service
+install -m 644 nodejs-runner-cleaner.service %{buildroot}/usr/lib/systemd/system/nodejs-runner-cleaner.service
+install -m 644 nodejs-testcase-runner.timer %{buildroot}/usr/lib/systemd/system/nodejs-testcase-runner.timer
+install -m 644 nodejs-runner-cleaner.timer %{buildroot}/usr/lib/systemd/system/nodejs-runner-cleaner.timer
+
+
+%files
+%dir /usr/lib/nodejs_runner/
+%dir /etc/nodejs_runner/
+/usr/lib/nodejs_runner/run_nodejs_testcases_in_batch.sh
+/usr/lib/nodejs_runner/run_all_nodejs_testcases.sh
+/usr/lib/nodejs_runner/systemd_service_cleanup.sh
+/etc/nodejs_runner/nodejs-testcase-runner.config
+/etc/nodejs_runner/nodejs-runner-cleaner.config
+/usr/lib/systemd/system/nodejs-testcase-runner.service
+/usr/lib/systemd/system/nodejs-runner-cleaner.service
+/usr/lib/systemd/system/nodejs-testcase-runner.timer
+/usr/lib/systemd/system/nodejs-runner-cleaner.timer
+
+%pre
+echo "This is a sample log printed from Pre Install block of spec file";
+if [[ "$1" -gt 1 ]]
+then
+	systemctl --now disable nodejs-runner-cleaner.timer;
+	systemctl --now disable nodejs-testcase-runner.timer;
+	systemctl --now disable nodejs-runner-cleaner.service;
+	systemctl --now disable nodejs-testcase-runner.service;
+	systemctl daemon-reload;
+	sleep 2;
+fi;
+
+%post
+echo "This is a sample log printed from Post Install block of spec file";
+
+if [[ "$1" -ge 1 ]]
+then
+	systemctl --now enable nodejs-runner-cleaner.timer;
+	systemctl --now enable nodejs-testcase-runner.timer;
+	systemctl daemon-reload;
+fi;
+
+%preun
+echo "This is a sample log printed from Pre Un-Install block of spec file";
+if [[ "$1" -eq 0 ]]
+then
+
+	systemctl --now disable nodejs-runner-cleaner.timer;
+	systemctl --now disable nodejs-testcase-runner.timer;
+	systemctl --now disable nodejs-runner-cleaner.service;
+	systemctl --now disable nodejs-testcase-runner.service;
+	systemctl daemon-reload;
+fi;
+
+%postun
+echo "This is a sample log printed from Post Un-Install block of spec file";
+
+
+%changelog
+* Sun Sep 29 2019 Veerabhadrudu <veerabhadrudu.s@gmail.com> - %{version}
+- nodejs test runner rpm created.

@@ -1,0 +1,12 @@
+[Unit]
+Description=nodejs-runner-cleaner.service
+Requires=network.service
+After=network.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/nodejs_runner/nodejs-runner-cleaner.config
+ExecStart=/usr/lib/nodejs_runner/systemd_service_cleanup.sh ${CLEAN_UP_SERVICE_FILE}
+
+[Install]
+WantedBy=multi-user.target
