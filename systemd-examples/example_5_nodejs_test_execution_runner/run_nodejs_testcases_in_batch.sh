@@ -38,6 +38,9 @@ done
 
 tar -cvzf ${VAR_LOG_PATH}/${TEST_DIR_LOWER}_${TIMESTAMP}.gz.tar  ${VAR_LOG_PATH}/${TEST_DIR_LOWER}_${TIMESTAMP}*log;
 rm -f ${VAR_LOG_PATH}/${TEST_DIR_LOWER}_${TIMESTAMP}*log;
+echo "Node JS Test case execution report and logs." | mailx -s "Node JS Test case execution report and logs." -a ${VAR_LOG_PATH}/${TEST_DIR_LOWER}_${TIMESTAMP}.gz.tar \
+-r veerabhadrudu.s@hpe.com veerabhadrudu.s@hpe.com
+
 
 exit 0;
 

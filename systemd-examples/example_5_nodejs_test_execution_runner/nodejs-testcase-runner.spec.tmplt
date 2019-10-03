@@ -6,7 +6,7 @@ License:   	 GPL
 Source0:	 /root/rpmbuild/SPECS/%{name}-%{version}.gz.tar
 BuildArch: 	 noarch
 BuildRequires:	 systemd 
-Requires:	 systemd bash nodejs
+Requires:	 systemd bash nodejs mailx
 
 
 %description
