@@ -1,0 +1,4 @@
+# Run's this chron JOB every 2 mnts . Make sure to create symbolic link of dc test directory to /root/dc_tests/
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+*/2 * * * * root /root/dc_tests/stopHangedTestCases.sh &>> /root/dc_tests/hanged_tests_cron.log
